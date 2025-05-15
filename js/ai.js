@@ -35,10 +35,10 @@ const displayData = (data) => {
         <hr>
         <div class="flex justify-between items-center">
         <div>
-        <h3 class="text-2xl font-semibold">${singleData.name}</h3>
+        <h3 class="text-2xl font-semibold mb-3">${singleData.name}</h3>
         <i class="fa-solid fa-calendar-days"></i> ${singleData.published_in}
         </div>
-        <div class="rounded-full bg-[#FEF7F7] p-4 hover:bg-red-500">
+        <div onclick="" class="rounded-full bg-[#FEF7F7] p-4 hover:bg-red-500 hover:text-white">
         <i class="fa-solid fa-arrow-right"></i>
         </div>
         </div>
