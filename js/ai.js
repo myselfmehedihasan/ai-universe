@@ -25,6 +25,7 @@ const displayData = () => {
 
     const dataContainer = document.getElementById('data-container');
     // Do NOT clear dataContainer.innerHTML
+    dataContainer.innerHTML = "";
 
     displayItems.forEach(singleData => {
         const dataCard = document.createElement('div');
@@ -58,6 +59,14 @@ const showAllHandler = () => {
     displayData();
 }
 
+
+
+const dateSortHandler = () => {
+    console.log("connected date sort handler");
+    allData.sort((a, b) => new Date(b.published_in) - new Date(a.published_in));
+    displayData();
+
+}
 
 
 loadData();
