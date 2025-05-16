@@ -1,27 +1,32 @@
 console.log("connect ai.js");
 
+let allData = []; // Store all fetched data globally
+let isShowAll = false; // Track if showing all
+
 const loadData = async () => {
     const res = await fetch('https://openapi.programming-hero.com/api/ai/tools');
     const dataHub = await res.json();
-    const data = dataHub.data.tools;
-    console.log(data);
+    allData = dataHub.data.tools;
+    console.log(allData);
 
-    // --- ADDED: Call displayData after data is loaded ---
-    displayData(data);
+    displayData();
 }
 
+const displayData = () => {
+    const showAllContainer = document.getElementById('show-all-container');
+    if (allData.length > 5 && !isShowAll){
+        showAllContainer.classList.remove("hidden");
+    } else {
+        showAllContainer.classList.add("hidden");
+    }
 
+    // Show 6 or all based on isShowAll
+    let displayItems = isShowAll ? allData : allData.slice(0, 6);
 
-
-
-
-const displayData = (data) => {
-    
     const dataContainer = document.getElementById('data-container');
-    
-    // --- ADDED: Check if data exists before iterating ---
-    
-    data.forEach(singleData => {
+    // Do NOT clear dataContainer.innerHTML
+
+    displayItems.forEach(singleData => {
         const dataCard = document.createElement('div');
         dataCard.classList = `border border-[#1111111A] p-6 space-y-5 rounded-2xl`;
         dataCard.innerHTML = `
@@ -29,7 +34,7 @@ const displayData = (data) => {
         <img class ="rounded-2xl" src="${singleData?.image || 'no image'} " alt="">
         <h3 class="text-2xl font-semibold">Features</h3>
         <ol class="list-decimal ml-4">
-        ${singleData.features.map(feature => `<li>${feature}</li>`).join('') }
+        ${singleData.features.map(feature => `<li>${feature}</li>`).join('')}
         </ol>
         </div>
         <hr>
@@ -42,12 +47,16 @@ const displayData = (data) => {
         <i class="fa-solid fa-arrow-right"></i>
         </div>
         </div>
-        
         `;
         dataContainer.appendChild(dataCard);
     });
-} 
+}
 
+const showAllHandler = () => {
+    console.log("connected show all handle");
+    isShowAll = true;
+    displayData();
+}
 
 
 
